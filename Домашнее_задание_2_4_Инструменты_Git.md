@@ -4,7 +4,7 @@
 	Date:   Thu Jun 18 10:29:58 2020 -0400
 
 	Комментарий !!!    Update CHANGELOG.md
-2.   Тэг v0.12.23
+2.  Тэг v0.12.23
 	git show 85024d3
 	commit 85024d3100126de36331c6982bfaac02cdab9e76 (tag: v0.12.23)
 3.  У коммита b8d720 2 Родителя 
@@ -50,4 +50,10 @@
 	commit 33ff1c03bb960b332be3af2e333462dde88b279e (tag: v0.12.24)
     v0.12.24
 
-	
+5.  8c928e83589d90a031f811fae52a81be7153e82f
+
+6.  commit 35a058fb3ddfae9cfee0b3893822c9a95b920f4c
+	commit c0b17610965450a89598da491ce9b6b5cbd6393f
+	commit 8364383c359a6b738a436d1b7745ccdce178df47
+7.  git log -S "synchronizedWriters"
+	James Bardin <j.bardin@gmail.com>
