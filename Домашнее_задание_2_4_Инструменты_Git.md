@@ -16,11 +16,10 @@
 	
 	commit 85024d3100126de36331c6982bfaac02cdab9e76 (tag: v0.12.23)
 
-	
-3.  У коммита b8d720 1 родитель
-	
-	472d958b10cdeb0f495cdaff44d43f5dea640433
-
+	1 
+3.  git log --pretty=%P -n 1 b8d720
+	56cd7859e05c36c06b56d013b55a252d0bb7e158 
+	9ea88f22fc6269854151c571162c5bcf958bee2b
 	
 4.  commit 225466bc3e5f35baa5d07197bbc079345b77525e
 	
@@ -72,12 +71,16 @@
 
 5.  8c928e83589d90a031f811fae52a81be7153e82f
 
-6.  commit 35a058fb3ddfae9cfee0b3893822c9a95b920f4c
+6.  git grep позволяет найти вхождения globalPluginDirs (filename)
+
+	git log -L:globalPluginDirs:filename - дает нам следующие коммиты
 	
-	commit c0b17610965450a89598da491ce9b6b5cbd6393f
+	commit 78b12205587fe839f10d946ea3fdc06719decb05
 	
-	commit 8364383c359a6b738a436d1b7745ccdce178df47
+	commit 52dbf94834cb970b510f2fba853a5b49ad9b1a46
+	
+	commit 66ebff90cdfaa6938f26f908c7ebad8d547fea17
 	
 7.  git log -S "synchronizedWriters"
-	
-	James Bardin <j.bardin@gmail.com>
+	commit 5ac311e2a91e381e2f52234668b49ba670aa0fe5
+	Author: Martin Atkins <mart@degeneration.co.uk>
