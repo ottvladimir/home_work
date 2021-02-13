@@ -1,0 +1,2 @@
+
+<a target="_blank" rel="noopener noreferrer" href="/ottvladimir/home_work/blob/master/%D0%A0%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%B2%20%D1%82%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D0%B0%D0%BB%D0%B5%20(%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D1%8F%201)/img/oracle.png"><img src="/ottvladimir/sysadm-homeworks/raw/master/01-intro-01/img/yaml.png" alt="Yaml" style="max-width:100%;"></a></li>
