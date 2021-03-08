@@ -41,24 +41,24 @@
 12. 17 портов TCP находится в состоянии прослушивания.
       
 
-      administrator@Netology:~$ sudo ss -tulpn | grep tcp
-      tcp     LISTEN   0        64               0.0.0.0:38849          0.0.0.0:*
-      tcp     LISTEN   0        64               0.0.0.0:2049           0.0.0.0:*
-      tcp     LISTEN   0        4096             0.0.0.0:52457          0.0.0.0:*      users:(("rpc.mountd",pid=722,fd=9))
-      tcp     LISTEN   0        4096             0.0.0.0:50541          0.0.0.0:*      users:(("rpc.mountd",pid=722,fd=13))
-      tcp     LISTEN   0        4096             0.0.0.0:111            0.0.0.0:*      users:(("rpcbind",pid=564,fd=4),("systemd",pid=1,fd=229))
-      tcp     LISTEN   0        4096       127.0.0.53%lo:53             0.0.0.0:*      users:(("systemd-resolve",pid=565,fd=13))
-      tcp     LISTEN   0        128              0.0.0.0:22             0.0.0.0:*      users:(("sshd",pid=3393,fd=3))
-      tcp     LISTEN   0        5              127.0.0.1:631            0.0.0.0:*      users:(("cupsd",pid=666,fd=7))
-      tcp     LISTEN   0        4096             0.0.0.0:55321          0.0.0.0:*      users:(("rpc.mountd",pid=722,fd=17))
-      tcp     LISTEN   0        4096                [::]:51643             [::]:*      users:(("rpc.mountd",pid=722,fd=11))
-      tcp     LISTEN   0        64                  [::]:2049              [::]:*
-      tcp     LISTEN   0        4096                [::]:37091             [::]:*      users:(("rpc.mountd",pid=722,fd=19))
-      tcp     LISTEN   0        4096                [::]:43273             [::]:*      users:(("rpc.mountd",pid=722,fd=15))
-      tcp     LISTEN   0        64                  [::]:35085             [::]:*
-      tcp     LISTEN   0        4096                [::]:111               [::]:*      users:(("rpcbind",pid=564,fd=6),("systemd",pid=1,fd=231))
-      tcp     LISTEN   0        128                 [::]:22                [::]:*      users:(("sshd",pid=3393,fd=4))
-      tcp     LISTEN   0        5                  [::1]:631               [::]:*      users:(("cupsd",pid=666,fd=6))
+            administrator@Netology:~$ sudo ss -tulpn | grep tcp
+            tcp     LISTEN   0        64               0.0.0.0:38849          0.0.0.0:*
+            tcp     LISTEN   0        64               0.0.0.0:2049           0.0.0.0:*
+            tcp     LISTEN   0        4096             0.0.0.0:52457          0.0.0.0:*      users:(("rpc.mountd",pid=722,fd=9))
+            tcp     LISTEN   0        4096             0.0.0.0:50541          0.0.0.0:*      users:(("rpc.mountd",pid=722,fd=13))
+            tcp     LISTEN   0        4096             0.0.0.0:111            0.0.0.0:*      users:(("rpcbind",pid=564,fd=4),("systemd",pid=1,fd=229))
+            tcp     LISTEN   0        4096       127.0.0.53%lo:53             0.0.0.0:*      users:(("systemd-resolve",pid=565,fd=13))
+            tcp     LISTEN   0        128              0.0.0.0:22             0.0.0.0:*      users:(("sshd",pid=3393,fd=3))
+            tcp     LISTEN   0        5              127.0.0.1:631            0.0.0.0:*      users:(("cupsd",pid=666,fd=7))
+            tcp     LISTEN   0        4096             0.0.0.0:55321          0.0.0.0:*      users:(("rpc.mountd",pid=722,fd=17))
+            tcp     LISTEN   0        4096                [::]:51643             [::]:*      users:(("rpc.mountd",pid=722,fd=11))
+            tcp     LISTEN   0        64                  [::]:2049              [::]:*
+            tcp     LISTEN   0        4096                [::]:37091             [::]:*      users:(("rpc.mountd",pid=722,fd=19))
+            tcp     LISTEN   0        4096                [::]:43273             [::]:*      users:(("rpc.mountd",pid=722,fd=15))
+            tcp     LISTEN   0        64                  [::]:35085             [::]:*
+            tcp     LISTEN   0        4096                [::]:111               [::]:*      users:(("rpcbind",pid=564,fd=6),("systemd",pid=1,fd=231))
+            tcp     LISTEN   0        128                 [::]:22                [::]:*      users:(("sshd",pid=3393,fd=4))
+            tcp     LISTEN   0        5                  [::1]:631               [::]:*      users:(("cupsd",pid=666,fd=6))
 
 13. tcpdump -X выводит пакет в ASCII- и hex-формате. tcpdump -x делает распечатку пакета в шестнадцатеричной системе
 
