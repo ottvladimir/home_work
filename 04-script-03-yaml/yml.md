@@ -1,5 +1,5 @@
 Мы выгрузили JSON, который получили через API запрос к нашему сервису:  
-{ "info" : "Sample JSON output from our service\t"
+{ "info" : "Sample JSON output from our service\t"  
     "elements" :[
         { "name" : "first",
         "type" : "server",
