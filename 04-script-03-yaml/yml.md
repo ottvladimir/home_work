@@ -1,8 +1,8 @@
 Мы выгрузили JSON, который получили через API запрос к нашему сервису:  
-{ "info" : "Sample JSON output from our service\t"  
+{ "info" : "Sample JSON output from our service"  
     "elements" :[  
-        { "name" : "first",  
-        "type" : "server",  
+        { "name" : "first" ,  
+        "type" : "server" ,  
         "ip" : "71.75." ,  
         },  
         { "name" : "second",  
