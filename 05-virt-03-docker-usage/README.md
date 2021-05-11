@@ -26,3 +26,20 @@
 ## Задача 2
     docker pull ottvladimir/hey_netology:v0.1
 ## Задача 3
+    centos:
+docker run -dit -v info:/share/info centos:7 bash  
+
+ docker exec -it  824014b25b94 bash
+    [root@824014b25b94 ~]# ls /share/ 
+info
+ 
+    [root@824014b25b94 ~]# echo "MyTestFile" >> /share/info/myfile
+[root@824014b25b94 ~]# cat ^C     
+[root@824014b25b94 ~]# cat /share/info/myfile
+MyTestFile
+
+
+host
+
+
+
