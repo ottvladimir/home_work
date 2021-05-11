@@ -24,5 +24,5 @@
 - Jenkins-сервер - докер.
 
 ## Задача 2
-
+    docker pull ottvladimir/hey_netology:v0.1
 ## Задача 3
