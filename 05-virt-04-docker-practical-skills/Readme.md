@@ -15,33 +15,63 @@ Dockerfile:
     
 ## Задача 2 Решение
 
+### Dockerfile Amazoncorretto:
 
-## Задача 2  Задание
+        FROM amazoncorretto:latest
 
-В данной задаче вы составите несколько разных Dockerfile для проекта Jenkins, опубликуем образ в `dockerhub.io` и посмотрим логи этих контейнеров.
+        RUN yum update -y && \
+            yum install -y wget && \
+            yum install -y java-11-amazon-corretto
+        RUN wget https://get.jenkins.io/war-stable/2.277.3/jenkins.war -nv
+        RUN yum clean all
+        ENTRYPOINT ["/usr/bin/java", "-jar", "jenkins.war"]
 
-- Составьте 2 Dockerfile:
-
-    - Общие моменты:
-        - Образ должен запускать [Jenkins server](https://www.jenkins.io/download/)
+        EXPOSE 8080/tcp
+        EXPOSE 50000/tcp
         
-    - Спецификация первого образа:
-        - Базовый образ - [amazoncorreto](https://hub.docker.com/_/amazoncorretto)
-        - Присвоить образу тэг `ver1` 
-    
-    - Спецификация второго образа:
-        - Базовый образ - [ubuntu:latest](https://hub.docker.com/_/ubuntu)
-        - Присвоить образу тэг `ver2` 
-
-- Соберите 2 образа по полученным Dockerfile
-- Запустите и проверьте их работоспособность
-- Опубликуйте образы в своём dockerhub.io хранилище
-
-Для получения зачета, вам необходимо предоставить:
-- Наполнения 2х Dockerfile из задания
+        docker pull ottvladimir/amazoncorretto:ver1
+        
+##Здесь будут скриншоты
 - Скриншоты логов запущенных вами контейнеров (из командной строки)
 - Скриншоты веб-интерфейса Jenkins запущенных вами контейнеров (достаточно 1 скриншота на контейнер)
-- Ссылки на образы в вашем хранилище docker-hub
+
+### Dockerfile Ubuntu:
+
+        FROM ubuntu:latest
+
+        RUN apt-get update && \
+            apt-get install -y wget && \
+            apt-get install -y openjdk-11-jdk
+        RUN wget https://get.jenkins.io/war-stable/2.277.3/jenkins.war -nv
+        RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+        ENTRYPOINT ["/usr/bin/java", "-jar", "jenkins.war"]
+
+        EXPOSE 8080/tcp
+        EXPOSE 50000/tcp
+        
+        
+        docker pull ottvladimir/ubuntu:ver2
+##Здесь будут скриншоты
+- Скриншоты логов запущенных вами контейнеров (из командной строки)
+- Скриншоты веб-интерфейса Jenkins запущенных вами контейнеров (достаточно 1 скриншота на контейнер)
+
+## Задача 3  Решение
+
+Листинг докера
+
+        FROM node
+        RUN git clone https://github.com/simplicitesoftware/nodejs-demo.git && \
+        cd /nodejs-demo && \
+        sed -i "s/localhost/0.0.0.0/g" app.js && \
+        npm audit fix && \
+        npm install
+
+        WORKDIR /nodejs-demo
+
+        CMD ["npm", "start"]
+
+        EXPOSE 3000
+
 
 ## Задача 3 
 
@@ -50,11 +80,6 @@ Dockerfile:
 - исполнять команды "изнутри" контейнера
 
 Для выполнения задания вам нужно:
-- Написать Dockerfile: 
-    - Использовать образ https://hub.docker.com/_/node как базовый
-    - Установить необходимые зависимые библиотеки для запуска npm приложения https://github.com/simplicitesoftware/nodejs-demo
-    - Выставить у приложения (и контейнера) порт 3000 для прослушки входящих запросов  
-    - Соберите образ и запустите контейнер в фоновом режиме с публикацией порта
 
 - Запустить второй контейнер из образа ubuntu:latest 
 - Создайть `docker network` и добавьте в нее оба запущенных контейнера
