@@ -72,23 +72,86 @@ Dockerfile:
 
         EXPOSE 3000
 
+Запускаю
+        
+        docker build -t ottvladimir/node .
+        docker run -d -p 3000:3000 ottvladimir/node
 
-## Задача 3 
+Собираю Ubuntu
+        
+        FROM ubuntu
+        RUN apt-get update && apt-get install -y curl
+        docker run -d -it --name=ubuntu ottvladimir/ubuntu_curl
+Создаю сеть  
 
-В данном задании вы научитесь:
-- объединять контейнеры в единую сеть
-- исполнять команды "изнутри" контейнера
+        docker network create node
+        $ docker network ls
+        NETWORK ID     NAME      DRIVER    SCOPE
+        9e2613a466f0   bridge    bridge    local
+        5c0d2137cc0d   host      host      local
+        14841aa6dad4   node      bridge    local
+        64a62d1df4c1   none      null      local
 
-Для выполнения задания вам нужно:
+Проверяем сеть 
 
-- Запустить второй контейнер из образа ubuntu:latest 
-- Создайть `docker network` и добавьте в нее оба запущенных контейнера
-- Используя `docker exec` запустить командную строку контейнера `ubuntu` в интерактивном режиме
-- Используя утилиту `curl` вызвать путь `/` контейнера с npm приложением  
+        $ docker network inspect node
+        [
+            {
+                "Name": "node",
+                "Id": "14841aa6dad41006656a1b9e293b0f87281a500a4deca82ce0a00dbd856c5112",
+                "Created": "2021-05-16T23:12:49.287589787Z",
+                "Scope": "local",
+                "Driver": "bridge",
+                "EnableIPv6": false,
+                "IPAM": {
+                    "Driver": "default",
+                    "Options": {},
+                    "Config": [
+                        {
+                            "Subnet": "172.19.0.0/16",
+                            "Gateway": "172.19.0.1"
+                        }
+                    ]
+                },
+                "Internal": false,
+                "Attachable": false,
+                "Ingress": false,
+                "ConfigFrom": {
+                    "Network": ""
+                },
+                "ConfigOnly": false,
+                "Containers": {
+                    "0d7558b3ea76962ed76a617998a7857f586d88687d8c7367e3688ad666ec17ce": {
+                        "Name": "competent_saha",
+                        "EndpointID": "c3c4abc51d3deba755eeac34f761781ac8c34990249611601bb4bc6ef78aee7e",
+                        "MacAddress": "02:42:ac:13:00:03",
+                        "IPv4Address": "172.19.0.3/16",
+                        "IPv6Address": ""
+                    },
+                    "5e6a656140f7444d2e7bd7cd27ef6440c9ce1714f6bface6a5a97e6e10662653": {
+                        "Name": "demo_node",
+                        "EndpointID": "cbb22fa4a7d25b11a0c82b2e1bd23b7eddeeda6a5e90098dc118ac57220821c5",
+                        "MacAddress": "02:42:ac:13:00:02",
+                        "IPv4Address": "172.19.0.2/16",
+                        "IPv6Address": ""
+                    }
+                },
+                "Options": {},
+                "Labels": {}
+            }
+        ]
+        
+        
+Результат curl
 
-Для получения зачета, вам необходимо предоставить:
-- Наполнение Dockerfile с npm приложением
-- Скриншот вывода вызова команды списка docker сетей (docker network cli)
-- Скриншот вызова утилиты curl с успешным ответом
-https://github.com/Owirtifo/homeworks/blob/main/05-virt-04-docker-practical-skills/README.md
-https://github.com/loshkarevev/Homeworks
+       $ docker exec -it ubuntu curl -I demo_node:3000
+        HTTP/1.1 200 OK
+        Cache-Control: private, no-cache, no-store, no-transform, must-revalidate
+        Expires: -1
+        Pragma: no-cache
+        Content-Type: text/html; charset=utf-8
+        Content-Length: 524946
+        ETag: W/"80292-QyCAzxdazWNb94dg58BzePehos8"
+        Date: Sun, 16 May 2021 23:40:31 GMT
+        Connection: keep-alive
+        Keep-Alive: timeout=5
