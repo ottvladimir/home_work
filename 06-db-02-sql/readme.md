@@ -10,7 +10,7 @@
     
      docker run -d -v postgre_db:/postgre_db \
                 -v postgre_backup:/postgre_backup \
-                -e POSTGRES_HOST_AUTH_METHOD=trust 
+                -e POSTGRES_HOST_AUTH_METHOD=trust \
                 -e PGDATA=postgre_db \
                 postgres:12
 
