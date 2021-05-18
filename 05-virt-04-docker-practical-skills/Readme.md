@@ -162,7 +162,7 @@ Dockerfile:
 
 ![Jenkins_ubuntu](img/jenkins5.jpg)
 ![Jenkins_ubuntu2](img/jenkins6.jpg)
-## Задача 3  Решение
+## Задача 3   Решение
 
 Листинг докера
 
