@@ -84,7 +84,7 @@ Dockerfile:
         2021-05-18 12:38:06.737+0000 [id=56]    INFO    hudson.model.AsyncPeriodicWork#lambda$doRun$0: Finished Download metadata. 12,817 ms
 
 ![jenkins2](img/jenkins2.jpg)
-![jenkins3](img/jenkins3.jpg)
+![jenkins3](img/jenkins3.png)
 
 ### Dockerfile Ubuntu:
 
