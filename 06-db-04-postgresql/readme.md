@@ -239,4 +239,5 @@
     sudo -u postgres pg_dump -d test_database > /postgre_backup/test_database_bak.sqlmv 
     
 Как бы вы доработали бэкап-файл, чтобы добавить уникальность значения столбца `title` для таблиц `test_database`?
-CREATE INDEX ON orders ((lower(title)));
+    
+    CREATE INDEX ON orders ((lower(title)));
