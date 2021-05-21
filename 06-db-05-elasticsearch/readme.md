@@ -30,35 +30,60 @@
 - elasticsearch в логах обычно описывает проблему и пути ее решения
 
 Далее мы будем работать с данным экземпляром elasticsearch.
-
+$ docker exec -it elasticsearch bash
+[root@50ae47dd1fc7 elasticsearch]# curl -X GET 'localhost:9200/'
+{
+  "name" : "50ae47dd1fc7",
+  "cluster_name" : "docker-cluster",
+  "cluster_uuid" : "BmlovxwmQuKROMniFV3Waw",
+  "version" : {
+    "number" : "7.12.1",
+    "build_flavor" : "default",
+    "build_type" : "docker",
+    "build_hash" : "3186837139b9c6b6d23c3200870651f10d3343b7",
+    "build_date" : "2021-04-20T20:56:39.040728659Z",
+    "build_snapshot" : false,
+    "lucene_version" : "8.8.0",
+    "minimum_wire_compatibility_version" : "6.8.0",
+    "minimum_index_compatibility_version" : "6.0.0-beta1"
+  },
+  "tagline" : "You Know, for Search"
+}
 ## Задача 2
+Cоздаем индексы
+   
+    curl -X PUT localhost:9200/ind-1 -H 'Content-Type: application/json' -d'{ "settings": { "number_of_shards": 1,  "number_of_replicas": 0 }}'
+    curl -X PUT localhost:9200/ind-2 -H 'Content-Type: application/json' -d'{ "settings": { "number_of_shards": 2,  "number_of_replicas": 1 }}'
+    curl -X PUT localhost:9200/ind-3 -H 'Content-Type: application/json' -d'{ "settings": { "number_of_shards": 4,  "number_of_replicas": 2 }}'
 
-В этом задании вы научитесь:
-- создавать и удалять индексы
-- изучать состояние кластера
-- обосновывать причину деградации доступности данных
+    [elasticsearch@50ae47dd1fc7 ~]$ curl -X GET 'http://localhost:9200/_cat/indices?v' 
+    health status index uuid                   pri rep docs.count docs.deleted store.size pri.store.size
+    green  open   ind-1 SXTTj9FOSCKPvvhNjUMS-g   1   0          0            0       208b           208b
+    yellow open   ind-3 lFLyVqRATde6Q9dqFCp7Nw   4   2          0            0       832b           832b
+    yellow open   ind-2 ig-aaLfeTeWyKtO6c5ZjpQ   2   1          0            0       416b           416b
 
-Ознакомтесь с [документацией](https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-create-index.html) 
-и добавьте в `elasticsearch` 3 индекса, в соответствии со таблицей:
 
-| Имя | Количество реплик | Количество шард |
-|-----|-------------------|-----------------|
-| ind-1| 0 | 1 |
-| ind-2 | 1 | 2 |
-| ind-3 | 2 | 4 |
+    [elasticsearch@50ae47dd1fc7 ~]$ curl -XGET 'http://localhost:9200/_cluster/health'
+    {
+    "cluster_name":"docker-cluster",
+    "status":"yellow",
+    "timed_out":false,
+    "number_of_nodes":1,
+    "number_of_data_nodes":1,
+    "active_primary_shards":7,
+    "active_shards":7,
+    "relocating_shards":0,
+    "initializing_shards":0,
+    "unassigned_shards":10,
+    "delayed_unassigned_shards":0,
+    "number_of_pending_tasks":0,
+    "number_of_in_flight_fetch":0,
+    "task_max_waiting_in_queue_millis":0,
+    "active_shards_percent_as_number":41.17647058823529
+    }
 
-Получите список индексов и их статусов, используя API и **приведите в ответе** на задание.
+Часть индексов и кластер находится в состоянии yellow, потому что при создании индексов мы указали не нулевые реплики, а по факту сервер в кластере один и реплицировать некуда.
 
-Получите состояние кластера `elasticsearch`, используя API.
-
-Как вы думаете, почему часть индексов и кластер находится в состоянии yellow?
-
-Удалите все индексы.
-
-**Важно**
-
-При проектировании кластера elasticsearch нужно корректно рассчитывать количество реплик и шард,
-иначе возможна потеря данных индексов, вплоть до полной, при деградации системы.
 
 ## Задача 3
 
@@ -68,10 +93,13 @@
 
 Создайте директорию `{путь до корневой директории с elasticsearch в образе}/snapshots`.
 
+    [root@50ae47dd1fc7 elasticsearch]# curl -X PUT localhost:9200/_snapshot/netology_backup -H 'Content-Type: application/json' -d'{"type": "fs", "settings": {         "location":"/usr/share/elasticsearch/snapshots" }}'
+    
+    
 Используя API [зарегистрируйте](https://www.elastic.co/guide/en/elasticsearch/reference/current/snapshots-register-repository.html#snapshots-register-repository) 
-данную директорию как `snapshot repository` c именем `netology_backup`.
+**данную директорию как `snapshot repository` c именем `netology_backup`.
 
-**Приведите в ответе** запрос API и результат вызова API для создания репозитория.
+**Приведите в ответе** запрос API и результат вызова API для создания репозитория.**
 
 Создайте индекс `test` с 0 реплик и 1 шардом и **приведите в ответе** список индексов.
 
