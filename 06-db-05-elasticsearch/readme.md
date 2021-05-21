@@ -30,25 +30,27 @@
 - elasticsearch в логах обычно описывает проблему и пути ее решения
 
 Далее мы будем работать с данным экземпляром elasticsearch.
-$ docker exec -it elasticsearch bash
-[root@50ae47dd1fc7 elasticsearch]# curl -X GET 'localhost:9200/'
-{
-  "name" : "50ae47dd1fc7",
-  "cluster_name" : "docker-cluster",
-  "cluster_uuid" : "BmlovxwmQuKROMniFV3Waw",
-  "version" : {
-    "number" : "7.12.1",
-    "build_flavor" : "default",
-    "build_type" : "docker",
-    "build_hash" : "3186837139b9c6b6d23c3200870651f10d3343b7",
-    "build_date" : "2021-04-20T20:56:39.040728659Z",
-    "build_snapshot" : false,
-    "lucene_version" : "8.8.0",
-    "minimum_wire_compatibility_version" : "6.8.0",
-    "minimum_index_compatibility_version" : "6.0.0-beta1"
-  },
-  "tagline" : "You Know, for Search"
-}
+  
+  
+    $ docker exec -it elasticsearch bash
+    [root@50ae47dd1fc7 elasticsearch]# curl -X GET 'localhost:9200/'
+    {
+      "name" : "50ae47dd1fc7",
+      "cluster_name" : "docker-cluster",
+      "cluster_uuid" : "BmlovxwmQuKROMniFV3Waw",
+      "version" : {
+        "number" : "7.12.1",
+        "build_flavor" : "default",
+        "build_type" : "docker",
+        "build_hash" : "3186837139b9c6b6d23c3200870651f10d3343b7",
+        "build_date" : "2021-04-20T20:56:39.040728659Z",
+        "build_snapshot" : false,
+        "lucene_version" : "8.8.0",
+        "minimum_wire_compatibility_version" : "6.8.0",
+        "minimum_index_compatibility_version" : "6.0.0-beta1"
+      },
+      "tagline" : "You Know, for Search"
+    }
 ## Задача 2
 Cоздаем индексы
    
