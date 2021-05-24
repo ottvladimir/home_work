@@ -22,7 +22,8 @@ Dockerfile
     USER elasticsearch     
     CMD ["/elasticsearch-7.12.1/bin/elasticsearch"
   
-  
+    $ docker pull ottvladimir/elasticsearch:7
+    $ docker run -rm -d -it ottvladimir/elasticsearch:7
     $ docker exec -it ottvladimir/elasticsearch bash
     [root@50ae47dd1fc7 elasticsearch]# curl -X GET 'localhost:9200/'
     {
@@ -84,29 +85,37 @@ Cоздаем индексы
 - создавать бэкапы данных
 - восстанавливать индексы из бэкапов
 
-Создайте директорию `{путь до корневой директории с elasticsearch в образе}/snapshots`.
+Создал директорию средствами docker `/elasticsearch-7.12.1/snapshots`.
+Регистрирую данную директорию как `snapshot repository` c именем `netology_backup`.
 
-    [root@50ae47dd1fc7 elasticsearch]# curl -X PUT localhost:9200/_snapshot/netology_backup -H 'Content-Type: application/json' -d'{"type": "fs", "settings": {         "location":"/usr/share/elasticsearch/snapshots" }}'
+    $ curl -X PUT localhost:9200/_snapshot/netology_backup -H 'Content-Type: application/json' -d'{"type": "fs", "settings": {"location":"/elasticsearch-7.12.1/snapshots" }}'
     
+    $ curl -X GET localhost:9200/_snapshot/netology_backup
+    {"netology_backup":{"type":"fs","uuid":"2vCecpFySsWCoEu7z5BrOw","settings":{"location":"/elasticsearch-7.12.1/snapshots"}}}
     
-Используя API [зарегистрируйте](https://www.elastic.co/guide/en/elasticsearch/reference/current/snapshots-register-repository.html#snapshots-register-repository) 
-**данную директорию как `snapshot repository` c именем `netology_backup`.
+Создаю индекс `test`:
 
-**Приведите в ответе** запрос API и результат вызова API для создания репозитория.**
+    $ curl -X PUT localhost:9200/ind-1 -H 'Content-Type: application/json' -d'{ "settings": { "number_of_shards": 1,  "number_of_replicas": 0 }}'
+    
+    health status index  uuid                   pri rep docs.count docs.deleted store.size pri.store.size
+    green  open   test   qCQlD--GTd2EHvSSxqSSOA   1   0          0            0       208b           208b
 
-Создайте индекс `test` с 0 реплик и 1 шардом и **приведите в ответе** список индексов.
+Создаю `snapshot` состояния кластера `elasticsearch`.
+      
+    $ curl -X localhost:9200/PUT/_snapshot/netology_backup/snapshot_1?wait_for_completion=true
 
-[Создайте `snapshot`](https://www.elastic.co/guide/en/elasticsearch/reference/current/snapshots-take-snapshot.html) 
-состояния кластера `elasticsearch`.
+    $ ls /elasticsearch-7.12.1/snapshots/
+    index-0  index.latest  indices  meta-ZnFNCrGxTo62gWxudRP1zA.dat  snap-ZnFNCrGxTo62gWxudRP1zA.dat
 
-**Приведите в ответе** список файлов в директории со `snapshot`ами.
+Удаляю индекс `test` и создаю индекс `test-2`:
+    
+    health status index  uuid                   pri rep docs.count docs.deleted store.size pri.store.size
+    green  open   test-2 LIzUtrbZRdSc_TPf8wSI7Q   1   0          0            0       208b           208b
+    
+Восстанавливаю состояние кластера `elasticsearch` из `snapshot`, созданного ранее. 
 
-Удалите индекс `test` и создайте индекс `test-2`. **Приведите в ответе** список индексов.
-
-[Восстановите](https://www.elastic.co/guide/en/elasticsearch/reference/current/snapshots-restore-snapshot.html) состояние
-кластера `elasticsearch` из `snapshot`, созданного ранее. 
-
-**Приведите в ответе** запрос к API восстановления и итоговый список индексов.
-
-Подсказки:
-- возможно вам понадобится доработать `elasticsearch.yml` в части директивы `path.repo` и перезапустить `elasticsearch`
+    $ curl -X POST 'http://localhost:9200/_snapshot/netology_backup/snapshot_1/_restore'
+    $ curl -X GET 'http://localhost:9200/_cat/indices?v'e'
+    health status index  uuid                   pri rep docs.count docs.deleted store.size pri.store.size
+    green  open   test-2 LIzUtrbZRdSc_TPf8wSI7Q   1   0          0            0       208b           208b
+    green  open   test   qCQlD--GTd2EHvSSxqSSOA   1   0          0            0       208b           208b
