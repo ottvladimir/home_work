@@ -4,27 +4,35 @@
 
 Файл `elasticsearch.yml`(https://github.com/ottvladimir/home_work/edit/master/06-db-05-elasticsearch/elasticsearch.yml)
 
-В ответе приведите:
+Dockerfile 
 
-Подсказки:
-- возможно вам понадобится установка пакета perl-Digest-SHA для корректной работы пакета shasum
-- при сетевых проблемах внимательно изучите кластерные и сетевые настройки в elasticsearch.yml
-- при некоторых проблемах вам поможет docker директива ulimit
-- elasticsearch в логах обычно описывает проблему и пути ее решения
-
-Далее мы будем работать с данным экземпляром elasticsearch.
+    FROM centos:7
+    RUN yum install -y wget perl-Digest-SHA
+    RUN wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.12.1-linux-x86_64.tar.gz &&\
+      wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.12.1-linux-x86_64.tar.gz.sha512 &&\
+      shasum -a 512 -c elasticsearch-7.12.1-linux-x86_64.tar.gz.sha512 &&\
+      tar -xzf elasticsearch-7.12.1-linux-x86_64.tar.gz
+    RUN rm elasticsearch-7.12.1-*
+    ADD elasticsearch.yml /elasticsearch-7.12.1/config/elasticsearch.yml
+    RUN groupadd elasticsearch && useradd -g elasticsearch elasticsearch
+    RUN chown -hR elasticsearch elasticsearch-7.12.1 && \
+        mkdir /var/log/elasticsearch && chown -hR elasticsearch /var/log/elasticsearch &&\
+        mkdir /var/lib/elasticsearch && chown -hR elasticsearch /var/lib/elasticsearch
+    RUN mkdir /elasticsearch-7.12.1/snapshots && chown elasticsearch /elasticsearch-7.12.1/snapshots
+    USER elasticsearch     
+    CMD ["/elasticsearch-7.12.1/bin/elasticsearch"
   
   
-    $ docker exec -it elasticsearch bash
+    $ docker exec -it ottvladimir/elasticsearch bash
     [root@50ae47dd1fc7 elasticsearch]# curl -X GET 'localhost:9200/'
     {
-      "name" : "50ae47dd1fc7",
-      "cluster_name" : "docker-cluster",
-      "cluster_uuid" : "BmlovxwmQuKROMniFV3Waw",
+      "name" : "netology_test",
+      "cluster_name" : "elasticsearch",
+      "cluster_uuid" : "KqsOVBq1R4m16shEn0j2Bw",
       "version" : {
         "number" : "7.12.1",
         "build_flavor" : "default",
-        "build_type" : "docker",
+        "build_type" : "tar",
         "build_hash" : "3186837139b9c6b6d23c3200870651f10d3343b7",
         "build_date" : "2021-04-20T20:56:39.040728659Z",
         "build_snapshot" : false,
