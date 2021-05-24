@@ -2,26 +2,9 @@
 
 ## Задача 1
 
-В этом задании вы потренируетесь в:
-- установке elasticsearch
-- первоначальном конфигурировании elastcisearch
-- запуске elasticsearch в docker
-
-Используя докер образ [centos:7](https://hub.docker.com/_/centos) как базовый и 
-[документацию по установке и запуску Elastcisearch](https://www.elastic.co/guide/en/elasticsearch/reference/current/targz.html):
-
-- составьте Dockerfile-манифест для elasticsearch
-- соберите docker-образ и сделайте `push` в ваш docker.io репозиторий
-- запустите контейнер из получившегося образа и выполните запрос пути `/` c хост-машины
-
-Требования к `elasticsearch.yml`:
-- данные `path` должны сохраняться в `/var/lib`
-- имя ноды должно быть `netology_test`
+Файл `elasticsearch.yml`(https://github.com/ottvladimir/home_work/edit/master/06-db-05-elasticsearch/elasticsearch.yml)
 
 В ответе приведите:
-- текст Dockerfile манифеста
-- ссылку на образ в репозитории dockerhub
-- ответ `elasticsearch` на запрос пути `/` в json виде
 
 Подсказки:
 - возможно вам понадобится установка пакета perl-Digest-SHA для корректной работы пакета shasum
