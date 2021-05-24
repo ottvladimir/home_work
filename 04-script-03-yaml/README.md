@@ -46,7 +46,7 @@ while True:
     file = for_file()
     with open("address.json", "w") as file_json:
       json.dump(file, file_json, indent=2)
-    with open("address.yaml", "w") as file_yaml:
+    with open("address.yml", "w") as file_yaml:
       yaml.dump(file, file_yaml)
   time.sleep(3)
   ```
