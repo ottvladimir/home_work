@@ -36,6 +36,9 @@ path.data: /var/lib/elasticsearch
 #
 path.logs: /var/log/elasticsearch
 #
+# Path to snapshots
+#
+path.repo: /elasticsearch-7.12.1/snapshots
 # ----------------------------------- Memory -----------------------------------
 #
 # Lock the memory on startup:
