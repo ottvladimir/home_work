@@ -27,18 +27,18 @@
 #!/usr/bin/env python3
 
 import socket, time, json, yaml
-
-URL1 = 'google.com'
-URL2 = 'mail.google.com'
-URL3 = 'drive.google.com'
-
+sites = ('google.com', 'mail.google.com', 'drive.google.com')
+url_dict={}
 def check_ip():
-  return {URL1: socket.gethostbyname(URL1), URL2: socket.gethostbyname(URL2), URL3: socket.gethostbyname(URL3)}
+   for site in sites:
+      url_dict[site]=socket.gethostbyname(site)
+   return url_dict
 def for_file():
-  return [{URL1: socket.gethostbyname(URL1)}, {URL2: socket.gethostbyname(URL2)}, {URL3: socket.gethostbyname(URL3)}]
-
+    urls_list=[]
+    for site in sites:
+        urls_list.append({site:socket.gethostbyname(site)})
+    return urls_list
 address = check_ip()
-
 while True:
   for url in address:
     print(f'{url} - {address[url]}')
