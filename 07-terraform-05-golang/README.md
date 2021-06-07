@@ -20,19 +20,19 @@
 у пользователя, а можно статически задать в коде.
     Для взаимодействия с пользователем можно использовать функцию `Scanf`:
     ```Go
-   package main
+    package main
 
-import "fmt"
+    import "fmt"
 
-func main() {
-    fmt.Print("Enter a number: ")
-    var input float64
-    fmt.Scanf("%f", &input)
+    func main() {
+        fmt.Print("Enter a number: ")
+        var input float64
+        fmt.Scanf("%f", &input)
 
-    output := input *  0.3048
+        output := input *  0.3048
 
-    fmt.Println(output)    
-}
+        fmt.Println(output)    
+    }
     ```
  
 1. Напишите программу, которая найдет наименьший элемент в любом заданном списке, например:
