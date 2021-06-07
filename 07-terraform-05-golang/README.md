@@ -19,20 +19,20 @@
 1. Напишите программу для перевода метров в футы (1 фут = 0.3048 метр). Можно запросить исходные данные 
 у пользователя, а можно статически задать в коде.
     Для взаимодействия с пользователем можно использовать функцию `Scanf`:
-    ```
-    package main
-    
-    import "fmt"
-    
-    func main() {
-        fmt.Print("Enter a number: ")
-        var input float64
-        fmt.Scanf("%f", &input)
-    
-        output := input * 2
-    
-        fmt.Println(output)    
-    }
+    ```Go
+   package main
+
+import "fmt"
+
+func main() {
+    fmt.Print("Enter a number: ")
+    var input float64
+    fmt.Scanf("%f", &input)
+
+    output := input *  0.3048
+
+    fmt.Println(output)    
+}
     ```
  
 1. Напишите программу, которая найдет наименьший элемент в любом заданном списке, например:
