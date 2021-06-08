@@ -9,7 +9,8 @@
 ## Задача 1. 
 1. Найдите, где перечислены все доступные `resource` и `data_source`, приложите ссылку на эти строки в коде на 
 гитхабе.   
-  https://github.com/hashicorp/terraform-provider-aws/blob/main/aws/provider.go#L445
+ resources --> https://github.com/hashicorp/terraform-provider-aws/blob/575fc2f7813656ddfc21d8a0aefc3414e1506118/aws/provider.go#L445
+ data_sources --> https://github.com/hashicorp/terraform-provider-aws/blob/575fc2f7813656ddfc21d8a0aefc3414e1506118/aws/provider.go#L186
 1. Для создания очереди сообщений SQS используется ресурс `aws_sqs_queue` у которого есть параметр `name`. 
     * С каким другим параметром конфликтует `name`? Приложите строчку кода, в которой это указано.
     * Какая максимальная длина имени? 
