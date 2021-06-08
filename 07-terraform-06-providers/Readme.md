@@ -12,10 +12,12 @@
  resources --> https://github.com/hashicorp/terraform-provider-aws/blob/575fc2f7813656ddfc21d8a0aefc3414e1506118/aws/provider.go#L445  
  data_sources --> https://github.com/hashicorp/terraform-provider-aws/blob/575fc2f7813656ddfc21d8a0aefc3414e1506118/aws/provider.go#L186
 1. Для создания очереди сообщений SQS используется ресурс `aws_sqs_queue` у которого есть параметр `name`. 
-    * С каким другим параметром конфликтует `name`? Приложите строчку кода, в которой это указано.
-    * Какая максимальная длина имени? 
-    * Какому регулярному выражению должно подчиняться имя? 
-    
+    * С каким другим параметром конфликтует `name`?  
+      https://github.com/hashicorp/terraform-provider-aws/blob/8e4d8a3f3f781b83f96217c2275f541c893fec5a/aws/resource_aws_sqs_queue.go#L56 
+    * Максимальная длина имени машины   
+      https://github.com/hashicorp/terraform-provider-aws/blob/27a50522f2becdbbac0a788f6f715049b343f33c/aws/validators.go#L1198 
+    * Какому регулярному выражению должно подчиняться имя? `^[a-zA-Z0-9-_]+$`   
+      https://github.com/hashicorp/terraform-provider-aws/blob/27a50522f2becdbbac0a788f6f715049b343f33c/aws/validators.go#L1204
 ## Задача 2. (Не обязательно) 
 В рамках вебинара и презентации мы разобрали как создать свой собственный провайдер на примере кофемашины. 
 Также вот официальная документация о создании провайдера: 
