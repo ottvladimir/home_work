@@ -1,5 +1,0 @@
----
-  some_fact: "deb"
-  ansible_port: "222"
-  ansible_ssh_pass: "password"
-  ansible_ssh_user: "ansible"
