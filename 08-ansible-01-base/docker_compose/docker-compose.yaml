@@ -1,4 +1,7 @@
 version: "3"
+volumes:
+   ansible_data:
+     external: true
 services:
     rockylinux:
         container_name: rocky
