@@ -225,6 +225,8 @@
                 ubuntu                     : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0  
 
 4. Добавьте новую группу хостов `fedora`, самостоятельно придумайте для неё переменную. В качестве образа можно использовать [этот](https://hub.docker.com/r/pycontribs/fedora).dock    
+Я использовал образ Rocky Linux.
 5. Напишите скрипт на bash: автоматизируйте поднятие необходимых контейнеров, запуск ansible-playbook и остановку контейнеров.
 wget https://raw.githubusercontent.com/ottvladimir/home_work/master/08-ansible-01-base/auto.sh -O auto.sh && chmod +x auto.sh && ./auto.sh
+в результате по пути ~/ansible_data/ создается файл wedoit.txt с результатом работы playbook'а
 7. Все изменения должны быть зафиксированы и отправлены в вашей личный репозиторий.
