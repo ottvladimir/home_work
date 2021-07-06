@@ -4,4 +4,4 @@ RUN yum install -y python38 openssh-clients svn git https://download-ib01.fedora
 RUN python3 -m pip install ansible
 RUN /usr/bin/svn checkout https://github.com/ottvladimir/home_work/trunk/08-ansible-01-base/playbook
 WORKDIR /playbook
-ENTRYPOINT ansible-playbook site.yaml -i inventory/prod.yml --ask-vault-pass
+ENTRYPOINT ansible-playbook site.yaml -i inventory/prod.yml --vault-password-file < echo netology
