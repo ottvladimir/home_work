@@ -1,9 +1,0 @@
-[test1]
-test1 ansible_host=172.19.0.2
-[test_group_2]
-test2 ansible_host=172.19.0.4
-test3 ansible_host=172.19.0.5
-[all:vars]
-ansible_port=222
-ansible_ssh_pass=password
-ansible_become_password=password
