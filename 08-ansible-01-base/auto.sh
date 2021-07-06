@@ -8,4 +8,5 @@ ln -s /var/lib/docker/volumes/ansible_data/_data ansivol && \
 docker run --rm -v=myvol:/data svnrun && \
 cd vol/docker_compose && \
 docker-compose up -d && \
+sleep 120 && \
 docker-compose down
