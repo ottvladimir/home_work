@@ -9,4 +9,5 @@ docker run --rm -v=myvol:/data svnrun && \
 cd vol/docker_compose && \
 docker-compose up -d && \
 sleep 120 && \
-docker-compose down
+docker-compose down && \
+cat ansivol/wedoit.txt
