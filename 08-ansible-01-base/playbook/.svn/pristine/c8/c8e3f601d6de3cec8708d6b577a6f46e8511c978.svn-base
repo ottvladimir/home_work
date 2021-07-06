@@ -10,7 +10,3 @@
     hosts:
       localhost:
         ansible_connection: local
-  rocky:
-    hosts:
-      rocky:
-        ansible_connection: ssh
