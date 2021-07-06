@@ -5,4 +5,4 @@ docker volume create myvol && \
 ln -s /var/lib/docker/volumes/myvol/_data vol && \
 docker run --rm -v=myvol:/data svnrun && \
 cd vol/docker_compose && \
-docker-compose up -d
+docker-compose up
