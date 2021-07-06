@@ -18,7 +18,4 @@ services:
     ansible:
         container_name: ansible
         build: ./ansible/
-        volumes: 
-            - type: volume
-            source: ansible_data
-            target: /data
+        volumes: ansible_data:/data
