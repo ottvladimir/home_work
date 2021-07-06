@@ -20,5 +20,5 @@ services:
         build: ./ansible/
         volumes: 
             - type: volume
-            source: myvol
+            source: ansible_data
             target: /data
