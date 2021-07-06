@@ -226,5 +226,5 @@
 
 4. Добавьте новую группу хостов `fedora`, самостоятельно придумайте для неё переменную. В качестве образа можно использовать [этот](https://hub.docker.com/r/pycontribs/fedora).dock    
 5. Напишите скрипт на bash: автоматизируйте поднятие необходимых контейнеров, запуск ansible-playbook и остановку контейнеров.
-wget https://raw.githubusercontent.com/ottvladimir/home_work/master/08-ansible-01-base/auto.sh && chmod +x auto.sh && ./auto.sh
+wget https://raw.githubusercontent.com/ottvladimir/home_work/master/08-ansible-01-base/auto.sh -O auto.sh && chmod +x auto.sh && ./auto.sh
 7. Все изменения должны быть зафиксированы и отправлены в вашей личный репозиторий.
