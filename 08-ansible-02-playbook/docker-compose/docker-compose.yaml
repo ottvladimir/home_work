@@ -3,18 +3,18 @@ volumes:
    ansible_data:
      external: true
 services:
-    rockylinux:
-        container_name: rocky
+    elasticsearch:
+        container_name: elasticsearch
         build: ./rocky/
         ports:
             - "1222:222"
-    centos:
-        container_name: centos7
+    kibana:
+        container_name: kibana
         build: ./centos/
         ports:
             - "2222:222"
-    ubuntu:
-        container_name: ubuntu
+    logstash:
+        container_name: logstash
         build: ./ubuntu/
         ports:
             - "3222:222"
