@@ -1,7 +1,7 @@
 version: "3"
 volumes:
    ansible_data:
-     external: true
+     external: false
 services:
     elasticsearch:
         container_name: elasticsearch
