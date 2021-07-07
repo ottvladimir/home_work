@@ -1,11 +1,11 @@
 ---
   elasticsearch:
     hosts:
-      localhost:
+      elasticsearch:
         ansible_connection: ssh
         ansible_user: root
   kibana:
     hosts:
-      localhost:
+      elasticsearch:
         ansible_connection: ssh
         ansible_user: root
