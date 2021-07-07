@@ -23,3 +23,5 @@ services:
         build: ./ansible/
         volumes: 
             - ansible_data:/data:rw
+        stdin_open: true
+        tty: true
