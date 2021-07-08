@@ -1,7 +1,6 @@
 FROM centos:latest
 
 RUN yum install -y openssh-server
-RUN useradd ansible -G wheel
 RUN echo 'root:password' | chpasswd
 RUN sed -ri 's/#Port 22/Port 222/g' /etc/ssh/sshd_config
 RUN sed -ri 's/UsePAM yes/#UsePAM yes/g' /etc/ssh/sshd_config
