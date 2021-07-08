@@ -4,16 +4,19 @@ volumes:
      external: false
 services:
     elasticsearch:
+        stdin_open: false
         container_name: elasticsearch
         build: ./rocky/
         ports:
             - "1222:222"
     kibana:
+        stdin_open: false
         container_name: kibana
         build: ./centos/
         ports:
             - "2222:222"
     logstash:
+        stdin_open: false
         container_name: logstash
         build: ./ubuntu/
         ports:

@@ -3,4 +3,4 @@
   java_oracle_jdk_package: jdk-8u271-linux-x64.tar.gz
   ansible_port: "222"
   ansible_ssh_pass: "password"
-  ansible_ssh_user: "ansible"
+  ansible_ssh_user: "root"

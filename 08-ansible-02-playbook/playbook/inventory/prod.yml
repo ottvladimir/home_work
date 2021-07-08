@@ -6,6 +6,6 @@
         ansible_user: root
   kibana:
     hosts:
-      elasticsearch:
+      kibana:
         ansible_connection: ssh
         ansible_user: root
