@@ -112,7 +112,7 @@
   - name: Install Logstash
     hosts: logstash  
     tasks:
-      --name: Install gnupg
+      - name: Install gnupg
         apt:
           name: "gnupg"
           state: present
