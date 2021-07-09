@@ -37,10 +37,6 @@
           src: jdk.sh.j2
           dest: /etc/profile.d/jdk.sh
         tags: java
-      - name: remove web dir contents
-        file: path='/tmp/' state=absent
-        with_fileglob:
-          - /tmp/jdk-{{ java_jdk_version }}.tar.gz
   - name: Install Elasticsearch
     hosts: elasticsearch
     tasks:
@@ -77,39 +73,67 @@
           src: templates/elk.sh.j2
           dest: /etc/profile.d/elk.sh
         tags: elastic
-  - name: Install Kibana
-    hosts: kibana  
+- name: Install Kibana
+   tasks:
+   hosts: kibana  
+     - name: Upload tar.gz Kibana from remote URL
+       get_url:
+         url: "https://artifacts.elastic.co/downloads/kibana/kibana-{{ kibana_version }}-linux-x86_64.tar.gz"
+         dest: "/tmp/kibana-{{ kibana_version }}-linux-x86_64.tar.gz"
+         mode: 0755
+         timeout: 60
+         force: true
+         validate_certs: false
+       register: get_kibana
+       until: get_kibana is succeeded
+       tags: kibana
+     - name: Create directrory for Kibana
+       file:
+         state: directory
+         path: "{{ kibana_home }}"
+       tags: kibana
+     - name: Extract Kibana in the installation directory
+       become: true
+       unarchive:
+         copy: false
+         src: "/tmp/kibana-{{ kibana_version }}-linux-x86_64.tar.gz"
+         dest: "{{ kibana_home }}"
+         extra_opts: [--strip-components=1]
+         creates: "{{ kibana_home }}/bin/kibana"
+       tags:
+         - skip_ansible_lint
+         - kibana
+     - name: Set environment Kibana
+       become: yes
+       template:
+         src: templates/kib.sh.j2
+         dest: /etc/profile.d/kib.sh
+       tags: kibana
+  - name: Install Logstash
+    hosts: logstash  
     tasks:
-      - name: Upload tar.gz Kibana from remote URL
-        get_url:
-          url: "https://artifacts.elastic.co/downloads/kibana/kibana-{{ kibana_version }}-linux-x86_64.tar.gz"
-          dest: "/tmp/kibana-{{ kibana_version }}-linux-x86_64.tar.gz"
-          mode: 0755
-          timeout: 60
-          force: true
-          validate_certs: false
-        register: get_kibana
-        until: get_kibana is succeeded
-        tags: kibana
-      - name: Create directrory for Kibana
-        file:
-          state: directory
-          path: "{{ kibana_home }}"
-        tags: kibana
-      - name: Extract Elasticsearch in the installation directory
-        become: true
-        unarchive:
-          copy: false
-          src: "/tmp/kibana-{{ kibana_version }}-linux-x86_64.tar.gz"
-          dest: "{{ kibana_home }}"
-          extra_opts: [--strip-components=1]
-          creates: "{{ kibana_home }}/bin/kibana"
-        tags:
-          - skip_ansible_lint
-          - kibana
-      - name: Set environment Kibana
+      --name: Install gnupg
+        apt:
+          name: "gnupg"
+          state: present
+      - name: logstash - add repository key
+        apt_key:
+          url: "https://artifacts.elastic.co/GPG-KEY-elasticsearch"
+        tags: logstash
+      - name: logstash - add repository
+        apt_repository:
+          repo: "deb https://artifacts.elastic.co/packages/7.x/apt stable main"
+          state: present
+          update_cache: yes
+        tags: logstash
+      - name: logstash - install
+        apt:
+          name: "logstash"
+          state: present
+        tags: logstash  
+      - name: config Logstash
         become: yes
         template:
-          src: templates/kib.sh.j2
-          dest: /etc/profile.d/kib.sh
-        tags: kibana
+         src: templates/logstash.yml.j2
+         dest: /opt/logstash/config/logstash.yml
+        tags: logstash
